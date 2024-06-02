@@ -5,25 +5,37 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed = 5f;
+    private CharacterController character;
+    public float speed = 7.5f;
     public Rigidbody rigidbody;
     private Vector3 direction;
     private Animator animator;
+    public Transform playerCameraParent;
+    public float lookSpeed = 2.0f;
+    public float lookXLimit = 60.0f;
+    Vector2 rotation = Vector2.zero;
     public bool attack;
+    [HideInInspector]
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        character = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        rotation.y = transform.eulerAngles.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float axis_x = Input.GetAxis("Horizontal");
-        float axis_z = Input.GetAxis("Vertical");
+        character.Move(direction * Time.deltaTime);
 
-        direction = new Vector3(axis_x, 0, axis_z);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? speed * Input.GetAxis("Horizontal") : 0;
+        direction = (forward * curSpeedX) + (right * curSpeedY);
 
         // Trocando a animação ao se movimentar
         if (direction != Vector3.zero)
@@ -55,6 +67,15 @@ public class Player : MonoBehaviour
                     attack = false;
                 }
             }
+        }
+
+        if (canMove)
+        {
+            rotation.y += Input.GetAxis("Mouse X") * lookSpeed;
+            rotation.x += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotation.x = Mathf.Clamp(rotation.x, -lookXLimit, lookXLimit);
+            playerCameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
+            transform.eulerAngles = new Vector2(0, rotation.y);
         }
     }
 
