@@ -1,46 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     private CharacterController character;
+    private Transform myCamera;
     public float speed = 7.5f;
-    public Rigidbody rigidbody;
-    private Vector3 direction;
     private Animator animator;
-    public Transform playerCameraParent;
-    public float lookSpeed = 2.0f;
-    public float lookXLimit = 60.0f;
-    Vector2 rotation = Vector2.zero;
     public bool attack;
-    [HideInInspector]
-    public bool canMove = true;
-
-    // Start is called before the first frame update
+    public Text textoScore;
+    public int score = 0;
+    
     void Start()
     {
         character = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        rotation.y = transform.eulerAngles.y;
+        textoScore.text = $"Score: {score.ToString()}";
+        myCamera = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        character.Move(direction * Time.deltaTime);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        
+        Vector3 direction = new Vector3(horizontal, 0, vertical);
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? speed * Input.GetAxis("Horizontal") : 0;
-        direction = (forward * curSpeedX) + (right * curSpeedY);
+        direction = myCamera.TransformDirection(direction);
+        direction.y = 0;
 
+        character.Move(direction * Time.deltaTime * speed);
+        character.Move(new Vector3(0, -9.81f, 0) * Time.deltaTime);
+        
         // Trocando a animação ao se movimentar
         if (direction != Vector3.zero)
         {
             animator.SetBool("mover", true);
+            transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 10);
         }
         else
         {
@@ -69,25 +69,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (canMove)
-        {
-            rotation.y += Input.GetAxis("Mouse X") * lookSpeed;
-            rotation.x += -Input.GetAxis("Mouse Y") * lookSpeed;
-            rotation.x = Mathf.Clamp(rotation.x, -lookXLimit, lookXLimit);
-            playerCameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
-            transform.eulerAngles = new Vector2(0, rotation.y);
-        }
+        textoScore.text = $"Score: {score.ToString()}";
     }
 
-    void FixedUpdate()
-    {
-        rigidbody.MovePosition(rigidbody.position + (direction * Time.deltaTime * speed));
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(direction);
-            rigidbody.MoveRotation(newRotation);
-        }
+    void Pontua(){
+        score++;
     }
 }
 

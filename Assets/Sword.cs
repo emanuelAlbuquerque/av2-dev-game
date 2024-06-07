@@ -22,6 +22,7 @@ public class Sword : MonoBehaviour
         if (objectColision.tag == "enemy" && playerScript.attack)
         {
             Destroy(objectColision.gameObject);
+            player.SendMessage("Pontua");
         }
     }
 }

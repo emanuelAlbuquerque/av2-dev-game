@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject player;
+    public Health playerHealth;
     public float speed = 5f;
     public Rigidbody rigidbody;
 
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
         else 
         {
             animator.SetBool("attack_empty", true);
+            playerHealth.DamagePlayer(10);
         }
     }
 }

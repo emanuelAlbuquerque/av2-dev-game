@@ -1230,12 +1230,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427580147}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11810737, y: -0, z: -0, w: 0.9930008}
-  m_LocalPosition: {x: 0.21, y: 2.23, z: -3.48}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.39923483, y: -0.5836195, z: 0.3992349, w: 0.5836193}
+  m_LocalPosition: {x: 1.7499999, y: 4.5, z: 0.00000020861626}
+  m_LocalScale: {x: 1.0500002, y: 1.0500001, z: 1.0500002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 842888625}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 13.566, y: 0, z: 0}
 --- !u!81 &427580149
 AudioListener:
@@ -1276,11 +1276,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.31
+  far clip plane: 5000
+  field of view: 67
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427580147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38242944722501416a8fb3108a0875d2, type: 3}
   m_Name: 
@@ -1764,8 +1764,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -221, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -312, y: 158.8}
+  m_SizeDelta: {x: 163.7315, y: 38.8717}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &563207344
 MonoBehaviour:
@@ -1780,7 +1780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1788,8 +1788,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: e13273183a9297064a2ea1f3cf327827, type: 3}
+    m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1800,7 +1800,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Score:'
 --- !u!222 &563207345
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2119,6 +2119,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 1143449466}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (4)
@@ -2758,6 +2762,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 533228018}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (6)
@@ -2802,8 +2810,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 427580148}
+  m_Children: []
   m_Father: {fileID: 1898339745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &848951234
@@ -3640,6 +3647,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 2043642313}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (1)
@@ -4315,6 +4326,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 154154075}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (5)
@@ -4514,6 +4529,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 876295077}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (3)
@@ -5190,6 +5209,10 @@ PrefabInstance:
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 1925252758}
+    - target: {fileID: 3608277509355154457, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1898339752}
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1 (2)
@@ -6210,12 +6233,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7.5
   rigidbody: {fileID: 1898339749}
-  playerCameraParent: {fileID: 842888625}
-  lookSpeed: 2
-  lookXLimit: 60
   attack: 0
-  canMove: 1
-  life: 100
+  textoScore: {fileID: 563207344}
+  score: 0
 --- !u!4 &1898339745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4883985664657356, guid: f933c455b886ad644b60dc415ab31bb3, type: 3}
@@ -6272,7 +6292,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &1898339752
 MonoBehaviour:
@@ -6675,3 +6695,4 @@ SceneRoots:
   - {fileID: 839322618}
   - {fileID: 1313688516}
   - {fileID: 1265826357}
+  - {fileID: 427580148}
