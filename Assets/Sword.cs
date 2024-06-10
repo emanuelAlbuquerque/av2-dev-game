@@ -25,14 +25,14 @@ public class Sword : MonoBehaviour
             if (enemyScript != null)
             {
                 enemyScript.die = true;
-                player.SendMessage("Pontua");
-                StartCoroutine(DestroyEnemyAfterDelay(objectColision.gameObject, 2.0f)); // 1 segundo de delay
+                StartCoroutine(DestroyEnemyAfterDelay(objectColision.gameObject, 2.0f)); 
             }
         }
     }
 
     private IEnumerator DestroyEnemyAfterDelay(GameObject enemy, float delay)
     {
+        player.SendMessage("Pontua");
         yield return new WaitForSeconds(delay);
         Destroy(enemy);
     }

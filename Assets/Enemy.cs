@@ -9,8 +9,10 @@ public class Enemy : MonoBehaviour
     public float speed = 5f;
     public Rigidbody rigidbody;
     public bool die;
-
+    private bool isAttacking = false;
     public Animator animator;
+    public float distance;
+    public float timerToAttack = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         if(!die){
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            distance = Vector3.Distance(transform.position, player.transform.position);
             Vector3 direction = player.transform.position - transform.position;
         
             if (direction != Vector3.zero)
@@ -38,15 +40,32 @@ public class Enemy : MonoBehaviour
             }
             else 
             {
-                animator.SetBool("attack_empty", true);
-                playerHealth.DamagePlayer(10);
-
                 if(playerHealth.curHealth <= 0){
                     player.die = true;
+                }
+
+                if (!isAttacking)
+                {
+                    StartCoroutine(AttackPlayer(timerToAttack));
                 }
             }
         }else{
             animator.SetBool("dead", true);
         }
+    }
+
+    public IEnumerator AttackPlayer(float timer)
+    {
+        isAttacking = true;
+        animator.SetBool("attack_empty", true);
+        
+        yield return new WaitForSeconds(timer);
+
+        if (distance < 1)
+        {
+            playerHealth.DamagePlayer(10);
+        }
+
+        isAttacking = false;
     }
 }
