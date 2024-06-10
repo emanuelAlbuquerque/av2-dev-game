@@ -631,7 +631,7 @@ MonoBehaviour:
   spawnAreaSize: {x: 100, y: 0, z: 80}
   spawnAreaCenter: {x: -40, y: 0, z: 20}
   player: {fileID: 1898339742}
-  textWave: {fileID: 0}
+  textWave: {fileID: 1617792256}
   initialSpawnInterval: 10
   spawnIntervalDecrease: 1
 --- !u!4 &122379227

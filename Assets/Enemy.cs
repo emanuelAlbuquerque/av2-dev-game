@@ -59,12 +59,12 @@ public class Enemy : MonoBehaviour
         isAttacking = true;
         animator.SetBool("attack_empty", true);
         
-        yield return new WaitForSeconds(timer);
-
-        if (distance < 1)
+        if (distance <= 1)
         {
             playerHealth.DamagePlayer(10);
         }
+
+        yield return new WaitForSeconds(timer);
 
         isAttacking = false;
     }
