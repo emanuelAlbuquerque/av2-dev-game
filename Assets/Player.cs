@@ -7,12 +7,16 @@ public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     private CharacterController character;
+    public GameObject panelDie;
     private Transform myCamera;
-    public float speed = 7.5f;
+    public float speed;
     private Animator animator;
     public bool attack;
     public Text textoScore;
     public int score = 0;
+    public bool canMove;
+    public bool die;
+    public bool damage;
     
     void Start()
     {
@@ -20,53 +24,71 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         textoScore.text = $"Score: {score.ToString()}";
         myCamera = Camera.main.transform;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        canMove = true;
+        die = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        
-        Vector3 direction = new Vector3(horizontal, 0, vertical);
+        if(!die){
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            
+            Vector3 direction = new Vector3(horizontal, 0, vertical);
 
-        direction = myCamera.TransformDirection(direction);
-        direction.y = 0;
+            direction = myCamera.TransformDirection(direction);
+            direction.y = 0;
 
-        character.Move(direction * Time.deltaTime * speed);
-        character.Move(new Vector3(0, -9.81f, 0) * Time.deltaTime);
-        
-        // Trocando a animação ao se movimentar
-        if (direction != Vector3.zero)
-        {
-            animator.SetBool("mover", true);
-            transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 10);
-        }
-        else
-        {
-            animator.SetBool("mover", false);
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            animator.SetBool("attack", true);
-            animator.SetBool("mover", false);
-            attack = true;
-        }
-        else
-        {
-            // Obter informações do estado atual da animação
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            // Verificar se a animação "attack" está ativa
-            if (stateInfo.IsName("Male Attack 1"))
+            if(canMove){
+                character.Move(direction * Time.deltaTime * speed);
+                character.Move(new Vector3(0, -9.81f, 0) * Time.deltaTime);        
+            }
+            
+            // Trocando a animação ao se movimentar
+            if (direction != Vector3.zero)
             {
-                // Verificar se a animação está no final (normalizedTime >= 1.0f significa que terminou)
-                if (stateInfo.normalizedTime >= 1.0f)
+                animator.SetBool("Mover", true);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10);
+            }
+            else
+            {
+                animator.SetBool("Mover", false);
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                canMove = false;
+                animator.SetBool("Mover", false);
+                animator.SetBool("Atacar", true);
+                attack = true;
+            }
+            else
+            {
+                
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                
+                if (stateInfo.IsName("Male Attack 1"))
                 {
-                    animator.SetBool("attack", false);
-                    attack = false;
+                    
+                    if (stateInfo.normalizedTime >= 1.0f)
+                    {
+                        animator.SetBool("Atacar", false);
+                        attack = false;
+                        canMove = true;
+                    }
                 }
             }
+
+            panelDie.SetActive(false);
+        }else{
+            animator.SetBool("Morte", true);
+            panelDie.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         textoScore.text = $"Score: {score.ToString()}";
